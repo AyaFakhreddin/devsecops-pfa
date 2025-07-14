@@ -37,10 +37,14 @@ jobs:
            name: trivy-report
            path: trivy-report.txt
 
+      - name: 🔐 Install Gitleaks
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/main/install.sh | sh
+
       - name: 🔐 Run Gitleaks scan
-        uses: gitleaks/gitleaks-action@v2
-        with:
-          args: detect --source=. --no-git --report-path=gitleaks-report.json
+        run: |
+          ./gitleaks detect --source=. --no-git --report-path=gitleaks-report.json
+
 
       - name: 📤 Upload Gitleaks report
         uses: actions/upload-artifact@v4
