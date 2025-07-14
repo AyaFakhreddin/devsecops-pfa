@@ -37,3 +37,15 @@ jobs:
            name: trivy-report
            path: trivy-report.txt
 
+      - name: 🔐 Run Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: detect --source=. --no-git --report-path=gitleaks-report.json
+
+      - name: 📤 Upload Gitleaks report
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report
+          path: gitleaks-report.json
+    
+
